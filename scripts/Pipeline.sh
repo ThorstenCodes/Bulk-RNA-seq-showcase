@@ -14,9 +14,17 @@ cd /Users/thorsten/code/ThorstenCodes/Bioinformatics_TK/Projects/RNASeq_Pipeline
 # fastqc "$file" -o data/
 # done
 
+
+
+###################################
+######## Trimming #################
+###################################
+
 # Next we trim reads using trimmomatic. The following is if you have single end reads:
 # TRAILING trims to remove up to 10 base pairs from the end of the read if they are low quality
 # -phred33 converts the quality score to phred33 format
+# SE means single end reads
+
 java -jar ../../Tools/Trimmomatic-0.39/trimmomatic-0.39.jar SE data/demo.fastq data/demo_trimmed.fastq TRAILING:10 -phred33
 echo "Trimmomatic for Single End finished running!"
 
@@ -58,8 +66,18 @@ done
 echo "Trimmomatic for paired end reads has finished running!"
 
 #######################################
-######################################
-#####################################
+########Aligning HISAT2 ###############
+#######################################
+
+# Create HISAT2 Folder and download reference genome for HISAT aligner from there website.
+mkdir HISAT2
+cd HISAT2
+wget https://genome-idx.s3.amazonaws.com/hisat/grch38_genome.tar.gz
+# Extract ther archive
+tar -xzf grch38_genome.tar.gz
+# This results in a new directory called grch38 with genome files in it.
+
+# Now we run the HISAT2 Aligner
 
 
 #echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
